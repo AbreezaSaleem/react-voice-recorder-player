@@ -1,0 +1,50 @@
+.voice-recorder_waveformcontainer {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-color: #efefef96;
+  background-image: -webkit-linear-gradient(top, rgb(243 242 242), white);
+}
+
+.voice-recorder_defaultcontainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  padding: 0 15px;
+  width: 100%;
+
+  p {
+    font-style: italic;
+  }
+}
+
+.voice-recorder_recordcontainer {
+  height: 100%;
+  margin: 0 20px;
+  canvas {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.voice-recorder_playbackcontainer {
+  height: 100%;
+  margin: 0 20px;
+
+  #playback, audio {
+    display: none;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .voice-recorder_canvascontainer {
+    position: relative;
+    height: 100%;
+
+    #progressbar, #waveformgraph-played-graph {
+      position: absolute;
+      left: 0;
+    }
+  }
+}

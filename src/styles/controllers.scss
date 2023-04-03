@@ -1,0 +1,97 @@
+
+.voice-recorder_controlscontainer {
+  align-items: center;
+  background-color: #efefef;
+  border-top: 1px solid #d8d5d5;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 15px;
+
+  .voice-recorder_controls {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+
+  .voice-recorder_controlgeneric {
+    all: unset;
+    background: none;
+    border: none;
+    height: 70%;
+    transition: all .2s ease-in-out;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    svg {
+      height: auto;
+      width: 65%;
+      transition: all .1s ease-in-out; 
+    }
+
+    & > svg:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+  }
+
+  .voice-recorder_control {
+    align-items:center;
+    aspect-ratio: 1;
+    background: #80808029;
+    background-image: -webkit-linear-gradient(283deg, rgb(236 236 236 / 83%) 50%, #dbdbdb 65%);
+    border: 1px solid #d8d5d5;
+    border-radius: 100%;
+    box-shadow: 0px 0px 8px #d2d2d2;
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+    position: relative;
+    transition: all .2s ease-in-out;
+  }
+
+  .voice-recorder_stopcontainer {
+    align-items: center;
+    background-color: #bebcbc29;
+    border-radius: 50px;
+    display: flex;
+    font-size: small;
+    height: 100%;
+    justify-content: space-between;
+    padding: 0;
+
+    .voice-recorder_stopwatch {
+      margin-right: 10px;
+    }
+    .voice-recorder_control {
+      height: 100%;
+    }
+  }
+
+  .voice-recorder_showblinking {
+    animation: blinker 2s ease-in-out infinite;
+
+    @keyframes blinker {
+      50% {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .voice-recorder_download {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    margin-left: auto;
+  }
+}
