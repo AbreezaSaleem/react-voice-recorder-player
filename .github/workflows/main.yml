@@ -20,11 +20,6 @@ jobs:
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      packages: write
-      security-events: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
