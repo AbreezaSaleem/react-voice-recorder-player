@@ -9,7 +9,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.tsx'),
       name: 'VoiceRecorder',
-      fileName: 'voice-recorder',
+      fileName: 'react-voice-recorder-player',
     },
     rollupOptions: {
       external: ['react'],
