@@ -129,7 +129,7 @@ We welcome contributions to improve `react-voice-recorder-player`! To contribute
 
 ## Issues
 
-If you encounter any issues while using `react-voice-recorder-player`, please feel free to [open an issue](https://github.com/AbreezaSaleem/voice-recorder/issues) on the project's GitHub repository. We welcome bug reports, feature requests, and other contributions from the community.
+If you encounter any issues while using `react-voice-recorder-player`, please feel free to [open an issue](https://github.com/AbreezaSaleem/react-voice-recorder-player/issues) on the project's GitHub repository. We welcome bug reports, feature requests, and other contributions from the community.
 
 ## License
 
