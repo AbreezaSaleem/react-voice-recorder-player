@@ -7,7 +7,7 @@
 
 Say goodbye to boring audio elments and hello to interactive voice recording! `react-voice-recorder-player` is a React component that lets users record and playback their voice directly in the browser. It even includes a waveform graph that shows the audio being captured and played back in real-time.
 
-`react-voice-recorder-player` is an ultra light-weight component. The package size is only `10.7kb` meaning it won't add unnecessary bulk to your application. And the best part is, its completely customizable! You can easily change the appearance of the component to fit your application's unique design.
+`react-voice-recorder-player` is an ultra light-weight component. The package size is only `164 kB` meaning it won't add unnecessary bulk to your application. And the best part is, its completely customizable! You can easily change the appearance of the component to fit your application's unique design.
 
 ## Installation
 
@@ -129,11 +129,11 @@ We welcome contributions to improve `react-voice-recorder-player`! To contribute
 
 ## Issues
 
-If you encounter any issues while using `react-voice-recorder`, please feel free to [open an issue](https://github.com/AbreezaSaleem/voice-recorder/issues) on the project's GitHub repository. We welcome bug reports, feature requests, and other contributions from the community.
+If you encounter any issues while using `react-voice-recorder-player`, please feel free to [open an issue](https://github.com/AbreezaSaleem/voice-recorder/issues) on the project's GitHub repository. We welcome bug reports, feature requests, and other contributions from the community.
 
 ## License
 
-`react-voice-recorder` is licensed under the MIT License. See the [LICENSE](https://github.com/username/react-voice-recorder/blob/main/LICENSE) file for more information.
+`react-voice-recorder-player` is licensed under the MIT License. See the [LICENSE](https://github.com/AbreezaSaleem/react-voice-recorder-player/blob/main/LICENSE) file for more information.
 
 ## Author
 <table>
