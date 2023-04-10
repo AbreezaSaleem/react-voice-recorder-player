@@ -81,7 +81,7 @@ function Playback() {
     const audioELem = document.querySelector('#playback_audio') as HTMLAudioElement;
     /* play from start */
     if (audioELem.readyState !== 4) {
-      const audioURL = window.URL.createObjectURL(new Blob([blob as BlobPart]));
+      const audioURL = window.URL.createObjectURL(new Blob([blob as BlobPart], {type: 'audio/mpeg'}));
       audioELem.src = audioURL;
       audioELem.onloadeddata = () => {
         audioELem.play();

@@ -1,6 +1,6 @@
 {
   "name": "react-voice-recorder-player",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Voice Recorder Component for React",
   "repository": {
     "type": "git",
@@ -45,7 +45,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "prepare": "husky install",
-    "semantic-release": "semantic-release --branches main"
+    "semantic-release": "semantic-release --branches main",
+    "host": "vite --host"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
