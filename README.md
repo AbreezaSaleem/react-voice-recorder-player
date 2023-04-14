@@ -117,8 +117,17 @@ function MyComponent() {
 
 ```
 
+## Troubleshooting
+This section provides solutions for known issues related to browser compatibility:
+- Issue: Playback option not working on iOS devices
+  - Due to browser limitations on iOS devices, the playback option may not work as expected. In the meantime, consider testing on other browsers or devices for full functionality.
+- Issue: Playback option not working on Mac Safari in Codesandbox
+  - Codesandbox is unable to play the recorded audio on Safari Mac. More details of the issue can be found here https://github.com/AbreezaSaleem/react-voice-recorder-player/issues/1
+
+Please note that this list may be updated as new issues are identified and resolved. Contributions from the community are welcome in identifying and fixing any bugs. We appreciate your help in making this project better!
+
 ## Contributing
-We welcome contributions to improve `react-voice-recorder-player`! To contribute, please follow these steps:
+We welcome contributions to improve `react-voice-recorder-player`. To contribute, please follow these steps:
 
 1. Fork the repository and clone it to your local machine.
 2. Install the package dependencies by running npm install.
