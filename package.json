@@ -38,7 +38,6 @@
   ],
   "scripts": {
     "compile": "tsc",
-    "postcompile": "sh scripts/post-compile.sh",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
