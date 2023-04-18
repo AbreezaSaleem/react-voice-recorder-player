@@ -119,8 +119,8 @@ function MyComponent() {
 
 ## Troubleshooting
 This section provides solutions for known issues related to browser compatibility:
-- Issue: Playback option not working on iOS devices
-  - Due to browser limitations on iOS devices, the playback option may not work as expected. In the meantime, consider testing on other browsers or devices for full functionality.
+- ~~Issue: Playback option not working on iOS devices~~
+  - ~~Due to browser limitations on iOS devices, the playback option may not work as expected. In the meantime, consider testing on other browsers or devices for full functionality.~~ (fixed)
 - Issue: Playback option not working on Mac Safari in Codesandbox
   - Codesandbox is unable to play the recorded audio on Safari Mac. More details of the issue can be found here https://github.com/AbreezaSaleem/react-voice-recorder-player/issues/1
 
