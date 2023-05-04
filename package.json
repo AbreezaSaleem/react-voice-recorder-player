@@ -38,7 +38,7 @@
   "scripts": {
     "compile": "tsc",
     "dev": "vite",
-    "build": "tsc && vite build && sh scripts/post-build.sh",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
