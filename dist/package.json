@@ -1,0 +1,79 @@
+{
+  "name": "react-voice-recorder-player",
+  "version": "1.0.10",
+  "description": "Voice Recorder Component for React",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbreezaSaleem/react-voice-recorder-player.git"
+  },
+  "author": "Abreeza Saleem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AbreezaSaleem/react-voice-recorder-player/issues"
+  },
+  "homepage": "https://github.com/AbreezaSaleem/react-voice-recorder-player/tree/main#readme",
+  "keywords": [
+    "voice-recorder",
+    "play recorded voice",
+    "react",
+    "react-component",
+    "audio-recorder",
+    "audio-player",
+    "media-recorder-api",
+    "MediaRecorder"
+  ],
+  "type": "module",
+  "types": "./index.d.ts",
+  "main": "./dist/react-voice-recorder-player.umd.cjs",
+  "module": "./dist/react-voice-recorder-player.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-voice-recorder-player.js",
+      "require": "./dist/react-voice-recorder-player.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "compile": "tsc",
+    "dev": "vite",
+    "build": "tsc && vite build && sh scripts/post-build.sh",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx",
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
+    "prepare": "husky install",
+    "semantic-release": "semantic-release --branches main",
+    "host": "vite --host"
+  },
+  "dependencies": {
+    "prop-types": "^15.8.1",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-timer-hook": "^3.0.5",
+    "sass": "^1.57.1"
+  },
+  "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.3",
+    "@types/node": "^18.15.3",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@vitejs/plugin-react": "^3.0.0",
+    "eslint": "^8.36.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "husky": "^8.0.3",
+    "semantic-release": "^21.0.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vite-plugin-css-injected-by-js": "^3.1.0",
+    "vite-plugin-svgr": "^2.4.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  }
+}
