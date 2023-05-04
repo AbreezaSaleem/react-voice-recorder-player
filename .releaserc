@@ -1,20 +1,14 @@
 {
   "plugins": [
-    ["@semantic-release/github", {
-      "assets": [
-        {"path": "dist/react-voice-recorder-player.js", "label": "ECMAScript Module distribution"},
-        {"path": "dist/react-voice-recorder-player.umd.cjs", "label": "Common JS distribution"}
-      ]
-    }],
     ["@semantic-release/git",
       {
         "assets": [
-          "dist/*",
-          "LICENSE",
-          "package.json",
-          "README.md"
+          "dist/*"
         ],
         "message": "chore: Release \\${nextRelease.version} [skip ci]\n\n\\${nextRelease.notes}"
+    }],
+    ["@semantic-release/npm", {
+      "tarballDir": "./dist"
     }]
   ]
 }
