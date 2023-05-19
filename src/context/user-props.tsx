@@ -11,6 +11,13 @@ const UserPropsContext = createContext<UserPropsContextInterface>({
   width: 'inherit',
   downloadable: false,
   onAudioDownload: () => undefined,
+  onRecordingStart: () => undefined,
+  onRecordingEnd: () => undefined,
+  onPlayStart: () => undefined,
+  onPlayEnd: () => undefined,
+  onRecordingPause: () => undefined,
+  onPlayPause: () => undefined,
+  rootElementId: '',
 });
 
 function UserPropsProvider({ userPropsValue, children } :

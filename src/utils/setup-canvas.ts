@@ -1,9 +1,11 @@
-const returnCanvasIfTheyExist = (selectors : Array<string>) : HTMLCanvasElement[] | null => {
+const returnCanvasIfTheyExist = (
+  selectors : Array<string>, parentElement : HTMLElement
+) : HTMLCanvasElement[] | null => {
   if (!selectors.length) return null;
   const result: HTMLCanvasElement[] = [];
   selectors.forEach((selector: string) => {
-    const element = document.getElementById(selector) as HTMLCanvasElement;
-    if (element) result.push(element);
+    const element = parentElement?.getElementsByClassName(selector) as HTMLCollectionOf<HTMLCanvasElement>;
+    if (element?.length) result.push(element[0]);
     return element;
   });
   return result.length ? result : null;
@@ -19,7 +21,7 @@ const removeCanvasElementsFromDOM = (canvasElements : HTMLCanvasElement[] | null
 const createCanvasElements = (selectors : Array<string>) : HTMLCanvasElement[] => {
   const canvasElements = selectors.map((selector: string) => {
     const canvasElement = document.createElement('canvas') as HTMLCanvasElement;
-    canvasElement.setAttribute('id', selector);
+    canvasElement.className = selector;
     return canvasElement;
   });
   return canvasElements;
@@ -60,11 +62,12 @@ dynamically AS IT GETS CREATED because otherwise for some reason, the canvas
 dictates the dimensions of both itself and the parent element.
 this is also the reason why we 'appendChild' AFTER we're done setting the dimensions */
 export const setUpCanvas =
-  (selectors : Array<string>, parentElementSelector : string) : HTMLCanvasElement[] | null => 
+  (rootElementId: string, selectors : Array<string>, parentElementSelector : string) : HTMLCanvasElement[] | null => 
 {
   try {
-    const parentElement = document.querySelector(parentElementSelector) as HTMLElement;
-    const canvasElements = returnCanvasIfTheyExist(selectors);
+    const rootElement = document.getElementById(rootElementId) as HTMLElement;
+    const parentElement = rootElement.querySelector(parentElementSelector) as HTMLElement;
+    const canvasElements = returnCanvasIfTheyExist(selectors, parentElement);
 
     removeCanvasElementsFromDOM(canvasElements);
     

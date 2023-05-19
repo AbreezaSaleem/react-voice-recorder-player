@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/anchor-has-content */
 /// <reference types="vite-plugin-svgr/client" /> // this imports the vite-plugin-svgr declaration file
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAudio, useUserProps } from '../../context';
 import { ReactComponent as Pause } from '../../assets/pause.svg';
 import { ReactComponent as Play } from '../../assets/play.svg';
@@ -20,12 +20,18 @@ const INITIAL_BUTTON_STATUSES = {
 };
 
 function Controllers() {
+  const downloadButtonRef = useRef<HTMLAnchorElement | null>(null);
   const { audioStatus, updateAudioStatus, audioRecording } = useAudio();
   const {
       controllerContainerStyle,
       controllerStyle,
-      downloadable,
+      downloadable = true,
       onAudioDownload,
+      onRecordingStart,
+      onPlayStart,
+      onRecordingPause,
+      onPlayPause,
+      rootElementId,
     } = useUserProps();
   const [buttonStatuses, setButtonStatuses] = useState<Record<string, boolean>>(INITIAL_BUTTON_STATUSES);
 
@@ -53,25 +59,25 @@ function Controllers() {
     .then(updateAudio(RECORDING)).catch(() => alert('Please allow acccess to your microphone to continue.'));
   }
 
-  useEffect(() => {
-    const maincontainer = document.querySelector('.voice-recorder_maincontainer')  as HTMLElement;
-    const controlcontainer = document.querySelector('.voice-recorder_controlscontainer') as HTMLElement;
-
-    if (maincontainer && controlcontainer) {
-      const { height } = maincontainer.getBoundingClientRect();
-      controlcontainer.style.height = `${height / 3}px`;
-    }
-  }, []);
-
   const downloadBlob = () => {
     const { blob = '' } = audioRecording || {};
-    if (!blob) return null;
-    const url = URL.createObjectURL(blob);  
-    const aElem = document.querySelector('.voice-recorder_downloadfile') as HTMLAnchorElement;
-    aElem.href = url;
-    aElem.download = 'audio.wav';
-    aElem.click();
+    if (!blob || !downloadButtonRef.current) return null;
+    const url = URL.createObjectURL(blob);
+    downloadButtonRef.current.href = url;
+    downloadButtonRef.current.download = 'audio.wav';
+    downloadButtonRef.current.click();
   };
+
+  useEffect(() => {
+    const rootElement = document.getElementById(rootElementId) as HTMLElement;
+    if (rootElement) {
+      const controlcontainer = rootElement.querySelector('.voice-recorder_controlscontainer') as HTMLElement;
+      if (rootElement && controlcontainer) {
+        const { height } = rootElement.getBoundingClientRect();
+        controlcontainer.style.height = `${height / 3}px`;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (audioRecording) {
@@ -89,21 +95,26 @@ function Controllers() {
           showRecordBtn: true,
         });
         break;
-      case RECORDING:
+      case RECORDING: {
+        onRecordingStart?.();
         setButtonStatuses({
           ...INITIAL_BUTTON_STATUSES,
           showPauseBtn: true,
           showStopBtn: true,
         });
         break;
-      case PAUSED_RECORDING:
+      }
+      case PAUSED_RECORDING: {
+        onRecordingPause?.();
         setButtonStatuses({
           ...INITIAL_BUTTON_STATUSES,
           showStopBtn: true,
           showRecordBtn: true,
         });
         break;
-      case PAUSED_PLAYING:
+      }
+      case PAUSED_PLAYING: {
+        onPlayPause?.();
         setButtonStatuses({
           ...INITIAL_BUTTON_STATUSES,
           showPlayBtn: true,
@@ -111,8 +122,9 @@ function Controllers() {
           showRedoBtn: true,
         });
         break;
-      case PLAYING:
-      case STOPPED:
+      }
+      case PLAYING: {
+        onPlayStart?.();
         setButtonStatuses({
           ...INITIAL_BUTTON_STATUSES,
           showPauseBtn: true,
@@ -120,6 +132,16 @@ function Controllers() {
           showRedoBtn: true,
         });
         break;
+      }
+      case STOPPED: {
+        setButtonStatuses({
+          ...INITIAL_BUTTON_STATUSES,
+          showPauseBtn: true,
+          showPlayBtn: true,
+          showRedoBtn: true,
+        });
+        break;
+      }
       default:
         setButtonStatuses(INITIAL_BUTTON_STATUSES);
     }
@@ -171,7 +193,7 @@ function Controllers() {
           })}
         </div>
       </div>
-      <a download style={{display: "none"}} className="voice-recorder_downloadfile" />
+      <a ref={downloadButtonRef} download style={{display: "none"}} className="voice-recorder_downloadfile" />
     </div>
   )
 }

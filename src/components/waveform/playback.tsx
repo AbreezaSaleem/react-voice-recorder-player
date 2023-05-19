@@ -8,7 +8,7 @@ const BUFFER_VS_HTML_DURATION_DIFFERENCE = 0.06;
 function Playback() {
   const [adjustedBars, setAdjustedBars] = useState<GraphDataType[]>([]);
   const { audioRecording, audioStatus, updateAudioStatus } = useAudio();
-  const { graphColor, graphShaded } = useUserProps();
+  const { graphColor, graphShaded, rootElementId, onPlayEnd } = useUserProps();
   const unplayedCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const playedCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const progressLineRef = useRef<HTMLCanvasElement  | null>(null);
@@ -64,21 +64,24 @@ function Playback() {
   };
 
   const setUpCanvas = () => {
-    const canvasElements = setUpCanvasUtil([
+    const canvasElements = setUpCanvasUtil(
+    rootElementId,
+    [
       'waveformgraph-unplayed-graph',
       'waveformgraph-played-graph',
       'progressbar',
     ], '.voice-recorder_canvascontainer');
 
-    unplayedCanvasRef.current = canvasElements?.find((elem) => elem.id === 'waveformgraph-unplayed-graph') as HTMLCanvasElement;
-    playedCanvasRef.current = canvasElements?.find((elem) => elem.id === 'waveformgraph-played-graph') as HTMLCanvasElement;
-    progressLineRef.current = canvasElements?.find((elem) => elem.id === 'progressbar') as HTMLCanvasElement;
+    unplayedCanvasRef.current = canvasElements?.find((elem) => elem.className === 'waveformgraph-unplayed-graph') as HTMLCanvasElement;
+    playedCanvasRef.current = canvasElements?.find((elem) => elem.className === 'waveformgraph-played-graph') as HTMLCanvasElement;
+    progressLineRef.current = canvasElements?.find((elem) => elem.className === 'progressbar') as HTMLCanvasElement;
   }
   
   const pauseAudio = () => audioRef?.current?.pause();
 
   const playAudio = () => {
-    const audioELem = document.querySelector('#playback_audio') as HTMLAudioElement;
+    const rootElement = document.getElementById(rootElementId) as HTMLElement;
+    const audioELem = rootElement.querySelector('#playback_audio') as HTMLAudioElement;
     audioELem.autoplay = true;
     /* play from start */
     if (audioELem.readyState !== 4) {
@@ -100,6 +103,7 @@ function Playback() {
       }
     }
     audioELem.onended = () => {
+      if (blob) onPlayEnd?.(blob);
       updateAudioStatus(STOPPED);
     }
   };

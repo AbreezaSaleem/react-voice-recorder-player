@@ -9,6 +9,12 @@ type VoiceRecorderProps = {
   graphShaded?: boolean;
   downloadable?: boolean;
   onAudioDownload?: (data: Blob) => void;
+  onRecordingStart?: () => void;
+  onRecordingEnd?: (data: Blob) => void;
+  onPlayStart?: () => void;
+  onPlayEnd?: (data: Blob) => void;
+  onRecordingPause?: () => void;
+  onPlayPause?: () => void;
 }
 
 type CanvasObj = {
@@ -44,7 +50,9 @@ interface AudioContextInterface {
   updateAudioRecording: (data: AudioRecordingDataType) => void;
 }
 
-type UserPropsContextInterface = VoiceRecorderProps
+interface UserPropsContextInterface extends VoiceRecorderProps {
+  rootElementId: string;
+}
 
 type ControllerType = {
   svg: SVGGraphicsElements;

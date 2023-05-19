@@ -1,3 +1,4 @@
+import { useId } from "react";
 import PropTypes from "prop-types";
 import Waveform from './components/waveform';
 import Controllers from './components/controllers';
@@ -11,6 +12,7 @@ export const VoiceRecorder: React.FC<VoiceRecorderProps> = (props) => {
     width,
     ...rest
   } = props;
+  const id = useId();
 
   const mainContainerStyleComplete = {
     ...mainContainerStyle,
@@ -18,10 +20,12 @@ export const VoiceRecorder: React.FC<VoiceRecorderProps> = (props) => {
     width,
   }
 
+  const rootElementId = `voice-recorder-${id}`;
+
   return (
     <AudioProvider>
-      <UserPropsProvider userPropsValue={rest}>
-        <div className="voice-recorder_maincontainer" style={mainContainerStyleComplete}>
+      <UserPropsProvider userPropsValue={{...rest, rootElementId}}>
+        <div id={rootElementId} className="voice-recorder_maincontainer" style={mainContainerStyleComplete}>
           <Waveform />
           <Controllers />
         </div>

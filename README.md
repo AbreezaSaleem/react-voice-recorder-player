@@ -7,7 +7,7 @@
 
 Say goodbye to boring audio elments and hello to interactive voice recording! `react-voice-recorder-player` is a React component that lets users record and playback their voice directly in the browser. It even includes a waveform graph that shows the audio being captured and played back in real-time.
 
-`react-voice-recorder-player` is an ultra light-weight component. The package size is only `164 kB` meaning it won't add unnecessary bulk to your application. And the best part is, its completely customizable! You can easily change the appearance of the component to fit your application's unique design.
+`react-voice-recorder-player` is an ultra light-weight component. The package size is only around `160 kB` meaning it won't add unnecessary bulk to your application. And the best part is, its completely customizable! You can easily change the appearance of the component to fit your application's unique design and trigger your own code on our custom events.
 
 ## Installation
 
@@ -69,6 +69,19 @@ The `VoiceRecorder` component will provide your users with an intuitive MP3-like
 | `downloadable`            | Boolean value indicating if the download button should be displayed to the user when they're done recording. `true` by default. | `boolean`         |
 | `onAudioDownload`            | A callback function that'll get called as soon as the `Blob` is available. | `Function`         |
 ------------------------------------------------------------------------------------------------------------------------------------------
+
+## Custom Events
+In addition to the props mentioned above, you can also use our custom callback events to trigger specific actions in your application. Here's a list of the custom events that are available:
+
+| Prop name        | Description                               | Type        |
+|------------------|-------------------------------------------|-------------|
+| `onRecordingStart` | Event triggered when recording starts      | `function`  |
+| `onRecordingEnd`   | Event fired when recording ends            | `function`  |
+| `onPlayStart`      | Event triggered when playback starts       | `function`  |
+| `onPlayEnd`        | Event fired when playback ends             | `function`  |
+| `onRecordingPause` | Event triggered when recording is paused   | `function`  |
+| `onPlayPause`      | Event fired when playback is paused        | `function`  |
+
 
 ## Customization
 

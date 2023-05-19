@@ -13,7 +13,7 @@ const GRAPH_WIDTH = 2;
 
 function Record() {
   const { audioStatus = '', updateAudioRecording } = useAudio();
-  const { graphColor, graphShaded } = useUserProps();
+  const { graphColor, graphShaded, rootElementId, onRecordingEnd } = useUserProps();
   const [now, setNow] = useState<number>(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const obj = useRef<CanvasObj>({});
@@ -48,7 +48,7 @@ function Record() {
   }, []);
 
   const setUpCanvas = () => {
-    const canvas = setUpCanvasUtil(['waveformgraph-record'], '.voice-recorder_recordcontainer')
+    const canvas = setUpCanvasUtil(rootElementId, ['waveformgraph-record'], '.voice-recorder_recordcontainer');
 
     if (canvas) canvasRef.current = canvas[0];
   };
@@ -90,6 +90,7 @@ function Record() {
         const arrayBuffer = await event.data.arrayBuffer();
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
         const recordingData = { blob: event.data, duration: audioBuffer.duration, graphData: (obj.current.graphData ?? []) }
+        onRecordingEnd?.(event.data);
         updateAudioRecording(recordingData);
       });
       mediaRecorder.addEventListener('stop', () => {
@@ -124,7 +125,7 @@ function Record() {
   
       maxFreq = Math.max(0, ...obj?.current?.dataArray ?? [])
     
-      const freq = Math.max(1, Math.floor(maxFreq * 350));
+      const freq = Math.max(1, Math.floor(maxFreq * 550));
 
       if (obj.current.graphData === undefined) {
         obj.current.graphData = [];

@@ -14,8 +14,6 @@
         ],
         "message": "chore: Release \\${nextRelease.version} [skip ci]\n\n\\${nextRelease.notes}"
     }],
-    ["@semantic-release/npm", {
-      "tarballDir": "./dist"
-    }]
+    ["@semantic-release/npm"]
   ]
 }
