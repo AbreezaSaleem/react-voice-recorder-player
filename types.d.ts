@@ -48,6 +48,7 @@ interface AudioContextInterface {
   audioRecording?: AudioRecordingDataType;
   updateAudioStatus: (status: string) => void;
   updateAudioRecording: (data: AudioRecordingDataType) => void;
+  convertAudioFile: (file: File) => void;
 }
 
 interface UserPropsContextInterface extends VoiceRecorderProps {

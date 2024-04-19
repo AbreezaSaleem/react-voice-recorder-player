@@ -32,5 +32,6 @@ export default defineConfig({
     PLAYING: JSON.stringify('playing'),
     PLAYING_REQUESTED: JSON.stringify('playing_requested'),
     STOPPED: JSON.stringify('stopped'),
+    GRAPH_WIDTH: 2,
   }
 })

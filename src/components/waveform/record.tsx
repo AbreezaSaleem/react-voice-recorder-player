@@ -9,7 +9,6 @@ import '../../styles/waveform.scss';
  */
 
 const TIME_OFFSET = 100;
-const GRAPH_WIDTH = 2;
 
 function Record() {
   const { audioStatus = '', updateAudioRecording } = useAudio();
@@ -68,7 +67,9 @@ function Record() {
       audio time and frequency data to create data visualizations */
       obj.current.analyserNode = audioContext.createAnalyser();
     
-      /* connect function will connect the output of the sourceNode to the input of the analyser */
+      /* connect function will connect the output of the sourceNode to the input of the analyser
+       you connect the two so that the analyserNode can analyse the audio data
+      */
       sourceNode.connect(obj?.current?.analyserNode);
       /* if you want to play the audio you have to 'connect' to audioContext.destination
       this will streamline the audio to your device's speakers  */
@@ -114,7 +115,7 @@ function Record() {
     ctx?.clearRect(0, 0, canvasRef?.current?.width ?? 1, canvasRef?.current?.height ?? 1);
     let maxFreq = -Infinity;
     
-    if (Number(performance.now())  > now) {
+    if (Number(performance.now()) > now) {
       setNow(Number(performance.now() / TIME_OFFSET));
 
       if (!obj?.current?.dataArray) return null;
@@ -122,7 +123,6 @@ function Record() {
       /* getFloatTimeDomainData copies the current waveform, or time-domain,
       data into a Float32Array array passed into it */
       obj?.current?.analyserNode?.getFloatTimeDomainData(obj?.current?.dataArray)
-  
       maxFreq = Math.max(0, ...obj?.current?.dataArray ?? [])
     
       const freq = Math.max(1, Math.floor(maxFreq * 550));
