@@ -45,10 +45,13 @@ type AudioRecordingDataType = {
 
 interface AudioContextInterface {
   audioStatus?: string;
+  audioFile?: File;
   audioRecording?: AudioRecordingDataType;
+  audioFileProcessing?: boolean;
   updateAudioStatus: (status: string) => void;
   updateAudioRecording: (data: AudioRecordingDataType) => void;
   convertAudioFile: (file: File) => void;
+  setAudioFileProcessing: (value: boolean) => void;
 }
 
 interface UserPropsContextInterface extends VoiceRecorderProps {
@@ -62,6 +65,7 @@ type ControllerType = {
   onClick: (data: event) => void;
   applyCircularStyles?: boolean;
   display?: boolean;
+  rotate?: boolean;
 }
 
 type GenerateCanvasColorType = {
