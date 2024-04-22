@@ -97,9 +97,10 @@ function Controllers() {
 
     if (uploadButtonRef.current) {
       uploadButtonRef.current.addEventListener('change', (event: Event) => {
-        const target= event.target as HTMLInputElement
+        const target = event.target as HTMLInputElement;
         if (target?.files) {
           uploadFile(target.files[0]);
+          target.value = ''; 
         }
       });
     }
