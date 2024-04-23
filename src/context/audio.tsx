@@ -27,7 +27,7 @@ function AudioProvider({ children } : { children: React.ReactNode }) {
   const updateAudioRecording = (audioRecording: AudioRecordingDataType) =>
     setAudioRecording(audioRecording);
   
-  const convertAudioFile = async (file: File) =>
+  const convertAudioFile = (file: File) =>
     setAudioFile(file);
 
   const value = {

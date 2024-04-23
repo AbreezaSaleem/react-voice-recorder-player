@@ -14,7 +14,7 @@ function Playback() {
   const playedCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const progressLineRef = useRef<HTMLCanvasElement  | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const interval = useRef<NodeJS.Timer>();
+  const interval = useRef<number | undefined>();
 
   const { blob, duration = 0, graphData = [] } = audioRecording || {};
   const graphDataContext = useRef<Array<GraphDataType>>(graphData);
@@ -41,10 +41,10 @@ function Playback() {
       drawPlayedBars();
     } else if (audioStatus === PAUSED_PLAYING) {
       pauseAudio();
-      clearInterval(interval.current);
+      window.clearInterval(interval.current);
     } else if (audioStatus === STOPPED) {
       // remove the red light
-      clearInterval(interval.current);
+      window.clearInterval(interval.current);
     }
   }, [audioStatus]);
 
@@ -155,7 +155,7 @@ function Playback() {
       previousTime = audioRef?.current?.currentTime;
       previousBar = currentBar;
       if (currentBar >= numberOfBars) {
-        clearInterval(interval.current);
+        window.clearInterval(interval.current);
         return;
       }
       const bar = adjustedBars[currentBar];
@@ -171,7 +171,7 @@ function Playback() {
     /* we want to immediately start drawing the graph
     setInterval will wait for the first interval to finish before executing the callback */
     drawBar();
-    interval.current = setInterval(drawBar, delay);
+    interval.current = window.setInterval(drawBar, delay);
   };
 
   return (

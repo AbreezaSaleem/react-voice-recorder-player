@@ -17,5 +17,5 @@
     "noEmit": true,
     "declaration": true,
   },
-  "include": ["src"],
+  "include": ["src", "types.d.ts"],
 }

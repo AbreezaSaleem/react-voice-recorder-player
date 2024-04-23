@@ -37,7 +37,7 @@ function Prerecord() {
     const canvas = setUpCanvasUtil(rootElementId, ['waveformgraph-record'], '.voice-recorder_recordcontainer');
 
     if (canvas) canvasRef.current = canvas[0];
-    
+
     /* convert File to Blob */
     const arrayBuffer = await audioFile.arrayBuffer();
     const blob = new Blob([new Uint8Array(arrayBuffer)], {type: audioFile.type });
@@ -61,7 +61,6 @@ function Prerecord() {
     audioSource.connect(gainNode);
     gainNode.connect(audioContext.destination);
     
-    
     audioSource.connect(analyserNode);
     
     audioSource.playbackRate.value = 2;
@@ -75,8 +74,8 @@ function Prerecord() {
       const dataArrayVal = new Float32Array(bufferLength);
       analyserNode.getFloatTimeDomainData(dataArrayVal);
       dataArray.push(dataArrayVal);
-
-      // Check if we've processed the entire audio
+      
+      /* Check if we've processed the entire audio */
       if (
         (audioContext.currentTime * 2 > audioBuffer.duration) &&
         (Math.abs((audioContext.currentTime * 2) - audioBuffer.duration) <= 0.1)
@@ -84,7 +83,6 @@ function Prerecord() {
         setAudioProcessed(true);
         return;
       }
-
       requestAnimationFrame(processAudio);
     }
     processAudio();

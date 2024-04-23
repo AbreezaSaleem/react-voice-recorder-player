@@ -82,8 +82,10 @@ function Controllers() {
   };
 
   const uploadFile = (file: File) => {
-    convertAudioFile(file);
-    updateAudioStatus(PROCESSING);
+    if (file) {
+      convertAudioFile(file);
+      updateAudioStatus(PROCESSING);
+    }
   };
 
   useEffect(() => {
@@ -245,7 +247,7 @@ function Controllers() {
             disabled: true,
             rotate: true,
             status: buttonStatuses.showLoadingBtn,
-            onClick: uploadFileSelection,
+            onClick: () => undefined,
           })}
         </div>
       </div>
