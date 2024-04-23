@@ -1,4 +1,5 @@
 import { useState, createContext, useContext } from 'react';
+import { AudioContextInterface, AudioRecordingDataType } from '../../types';
 
 const AudioContext = createContext<AudioContextInterface>({
   audioStatus: '',

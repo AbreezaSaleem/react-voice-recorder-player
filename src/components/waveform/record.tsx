@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useAudio, useUserProps } from '../../context';
 import { setUpCanvas as setUpCanvasUtil, generateCanvasFillColor } from '../../utils';
 import '../../styles/waveform.scss';
+import { CanvasObj } from '../../../types';
 
 /**
  * CREDITS: https://codepen.io/davidtorroija/pen/ZZzLpb?editors=0010 

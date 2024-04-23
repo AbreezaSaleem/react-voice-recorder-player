@@ -1,3 +1,5 @@
+import { CanvasColorType } from "../../types";
+
 const DEFAULT_COLORS = { solid: 'rgb(54, 54, 54)', faded: 'rgb(210, 209, 208)' };
 
 const convertHexToRgb = (color: string, height?: number | undefined, graphShaded ?: boolean) => {

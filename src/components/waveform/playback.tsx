@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useAudio, useUserProps } from '../../context';
 import { setUpCanvas as setUpCanvasUtil, generateCanvasFillColor } from '../../utils';
 import '../../styles/waveform.scss';
+import { GraphDataType } from '../../../types';
 
 const BUFFER_VS_HTML_DURATION_DIFFERENCE = 0.06;
 

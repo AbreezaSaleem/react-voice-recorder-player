@@ -12,6 +12,7 @@ import { ReactComponent as Upload } from '../../assets/upload.svg';
 import { ReactComponent as Loading } from '../../assets/loading.svg';
 import Stop from './Stop';
 import '../../styles/controllers.scss';
+import { ControllerType } from '../../../types';
 
 const INITIAL_BUTTON_STATUSES = {
   showRecordBtn: false,

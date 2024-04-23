@@ -2,17 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useAudio, useUserProps } from '../../context';
 import { setUpCanvas as setUpCanvasUtil } from '../../utils';
 import '../../styles/waveform.scss';
+import { ObjType } from '../../../types';
 
 /**
  * CREDITS: https://codepen.io/davidtorroija/pen/ZZzLpb?editors=0010 
  * https://stackoverflow.com/questions/55407563/web-audio-api-and-javascript-get-the-correct-picks-from-microphone
  */
-
-type ObjType = {
-  blob?: Blob;
-  audioBuffer?: AudioBuffer;
-  dataArray?: Float32Array[];
-}
 
 function Prerecord() {
   const [audioProcessed, setAudioProcessed] = useState<boolean>(false);
