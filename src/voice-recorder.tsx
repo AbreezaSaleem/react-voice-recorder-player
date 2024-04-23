@@ -4,6 +4,7 @@ import Waveform from './components/waveform';
 import Controllers from './components/controllers';
 import { AudioProvider, UserPropsProvider } from './context';
 import './styles/voice-recorder.scss';
+import { VoiceRecorderProps } from "../types";
 
 export const VoiceRecorder: React.FC<VoiceRecorderProps> = (props) => {
   const {

@@ -23,11 +23,11 @@
     "MediaRecorder"
   ],
   "type": "module",
-  "types": "./index.d.ts",
   "main": "./dist/react-voice-recorder-player.umd.cjs",
   "module": "./dist/react-voice-recorder-player.js",
   "exports": {
     ".": {
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/react-voice-recorder-player.js",
       "require": "./dist/react-voice-recorder-player.umd.cjs"
     }
@@ -70,7 +70,8 @@
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
     "vite-plugin-css-injected-by-js": "^3.1.0",
-    "vite-plugin-svgr": "^2.4.0"
+    "vite-plugin-svgr": "^2.4.0",
+    "vite-plugin-dts": "^3.8.3"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",

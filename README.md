@@ -67,6 +67,7 @@ The `VoiceRecorder` component will provide your users with an intuitive MP3-like
 | `graphColor`             | Color of the waveform graph.                                                                     |        `string`        |
 | `graphShaded`            | Boolean value indicating if the waveform graph should be shaded according to the amplitude of the audio. `true` by default. | `boolean`         |
 | `downloadable`            | Boolean value indicating if the download button should be displayed to the user when they're done recording. `true` by default. | `boolean`         |
+| `uploadAudioFile`            | Boolean value indicating if the upload button should be displayed to the user. `true` by default. | `boolean`         |
 | `onAudioDownload`            | A callback function that'll get called as soon as the `Blob` is available. | `Function`         |
 ------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -8,8 +8,11 @@ import { ReactComponent as Play } from '../../assets/play.svg';
 import { ReactComponent as Record } from '../../assets/record.svg';
 import { ReactComponent as Redo } from '../../assets/redo.svg';
 import { ReactComponent as Download } from '../../assets/download.svg';
+import { ReactComponent as Upload } from '../../assets/upload.svg';
+import { ReactComponent as Loading } from '../../assets/loading.svg';
 import Stop from './Stop';
 import '../../styles/controllers.scss';
+import { ControllerType } from '../../../types';
 
 const INITIAL_BUTTON_STATUSES = {
   showRecordBtn: false,
@@ -17,31 +20,36 @@ const INITIAL_BUTTON_STATUSES = {
   showPauseBtn: false,
   showStopBtn: false,
   showRedoBtn: false,
+  showUploadBtn: false,
+  showLoadingBtn: false,
 };
 
 function Controllers() {
   const downloadButtonRef = useRef<HTMLAnchorElement | null>(null);
-  const { audioStatus, updateAudioStatus, audioRecording } = useAudio();
+  const uploadButtonRef = useRef<HTMLInputElement | null>(null);
+  const { audioStatus, updateAudioStatus, audioRecording, convertAudioFile } = useAudio();
   const {
-      controllerContainerStyle,
-      controllerStyle,
-      downloadable = true,
-      onAudioDownload,
-      onRecordingStart,
-      onPlayStart,
-      onRecordingPause,
-      onPlayPause,
-      rootElementId,
-    } = useUserProps();
+    controllerContainerStyle,
+    controllerStyle,
+    downloadable = true,
+    uploadAudioFile = true,
+    onAudioDownload,
+    onRecordingStart,
+    onPlayStart,
+    onRecordingPause,
+    onPlayPause,
+    rootElementId,
+  } = useUserProps();
   const [buttonStatuses, setButtonStatuses] = useState<Record<string, boolean>>(INITIAL_BUTTON_STATUSES);
 
   const renderControl = (
-    { svg, disabled, status, onClick, applyCircularStyles = true, display = true } : ControllerType
+    { svg, disabled, status, onClick, applyCircularStyles = true, display = true, rotate = false } : ControllerType
   )=> {
     if (!status) return null;
     if (!display) return null;
     
-    const className = `${applyCircularStyles ? 'voice-recorder_control' : ''} voice-recorder_controlgeneric`;
+    let className = `${applyCircularStyles ? 'voice-recorder_control' : ''} voice-recorder_controlgeneric`;
+    className += `${rotate ? ' voice-recorder_rotate' : ''}`;
 
     return (
       <button onClick={onClick} disabled={disabled} className={className} style={controllerStyle}>
@@ -57,7 +65,7 @@ function Controllers() {
   const requestMicrophone = () => {
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
     .then(updateAudio(RECORDING)).catch(() => alert('Please allow acccess to your microphone to continue.'));
-  }
+  };
 
   const downloadBlob = () => {
     const { blob = '' } = audioRecording || {};
@@ -68,6 +76,19 @@ function Controllers() {
     downloadButtonRef.current.click();
   };
 
+  const uploadFileSelection = () => {
+    if (uploadButtonRef.current) {
+      uploadButtonRef.current.click();
+    }
+  };
+
+  const uploadFile = (file: File) => {
+    if (file) {
+      convertAudioFile(file);
+      updateAudioStatus(PROCESSING);
+    }
+  };
+
   useEffect(() => {
     const rootElement = document.getElementById(rootElementId) as HTMLElement;
     if (rootElement) {
@@ -75,6 +96,22 @@ function Controllers() {
       if (rootElement && controlcontainer) {
         const { height } = rootElement.getBoundingClientRect();
         controlcontainer.style.height = `${height / 3}px`;
+      }
+    }
+
+    if (uploadButtonRef.current) {
+      uploadButtonRef.current.addEventListener('change', (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        if (target?.files) {
+          uploadFile(target.files[0]);
+          target.value = ''; 
+        }
+      });
+    }
+
+    return () => {
+      if (uploadButtonRef.current) {
+        uploadButtonRef.current.removeEventListener('change', () => null);
       }
     }
   }, []);
@@ -93,6 +130,7 @@ function Controllers() {
         setButtonStatuses({
           ...INITIAL_BUTTON_STATUSES,
           showRecordBtn: true,
+          showUploadBtn: true,
         });
         break;
       case RECORDING: {
@@ -142,6 +180,14 @@ function Controllers() {
         });
         break;
       }
+      case PROCESSING: {
+        setButtonStatuses({
+          ...INITIAL_BUTTON_STATUSES,
+          showRecordBtn: true,
+          showLoadingBtn: true,
+        });
+        break;
+      }
       default:
         setButtonStatuses(INITIAL_BUTTON_STATUSES);
     }
@@ -152,7 +198,7 @@ function Controllers() {
       <div className="voice-recorder_controls">
         {renderControl({
           svg: <Record />,
-          disabled: false,
+          disabled: audioStatus === PROCESSING,
           status: buttonStatuses.showRecordBtn,
           onClick: requestMicrophone,
         })}
@@ -174,14 +220,14 @@ function Controllers() {
           svg: <Stop />,
           disabled: false,
           status: buttonStatuses.showStopBtn,
-          onClick:updateAudio(STOPPED),
+          onClick: updateAudio(STOPPED),
           applyCircularStyles: false,
         })}
         {renderControl({
           svg: <Redo />,
           disabled: false,
           status: buttonStatuses.showRedoBtn,
-          onClick:updateAudio(''),
+          onClick: updateAudio(''),
         })}
         <div className="voice-recorder_download">
           {renderControl({
@@ -191,8 +237,23 @@ function Controllers() {
             onClick: downloadBlob,
             display: downloadable,
           })}
+          {renderControl({
+            svg: <Upload />,
+            disabled: false,
+            status: buttonStatuses.showUploadBtn,
+            onClick: uploadFileSelection,
+            display: uploadAudioFile,
+          })}
+          {renderControl({
+            svg: <Loading />,
+            disabled: true,
+            rotate: true,
+            status: buttonStatuses.showLoadingBtn,
+            onClick: () => undefined,
+          })}
         </div>
       </div>
+      <input ref={uploadButtonRef} type="file" style={{display: "none"}} accept="audio/*" />
       <a ref={downloadButtonRef} download style={{display: "none"}} className="voice-recorder_downloadfile" />
     </div>
   )

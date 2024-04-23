@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import { UserPropsContextInterface } from '../../types';
 
 const UserPropsContext = createContext<UserPropsContextInterface>({
   mainContainerStyle: {},
@@ -10,6 +11,7 @@ const UserPropsContext = createContext<UserPropsContextInterface>({
   height: 'inherit',
   width: 'inherit',
   downloadable: false,
+  uploadAudioFile: true,
   onAudioDownload: () => undefined,
   onRecordingStart: () => undefined,
   onRecordingEnd: () => undefined,

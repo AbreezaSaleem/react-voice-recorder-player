@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useAudio, useUserProps } from '../../context';
 import { setUpCanvas as setUpCanvasUtil, generateCanvasFillColor } from '../../utils';
 import '../../styles/waveform.scss';
+import { GraphDataType } from '../../../types';
 
 const BUFFER_VS_HTML_DURATION_DIFFERENCE = 0.06;
 
@@ -13,7 +14,7 @@ function Playback() {
   const playedCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const progressLineRef = useRef<HTMLCanvasElement  | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const interval = useRef<NodeJS.Timer>();
+  const interval = useRef<number | undefined>();
 
   const { blob, duration = 0, graphData = [] } = audioRecording || {};
   const graphDataContext = useRef<Array<GraphDataType>>(graphData);
@@ -28,7 +29,7 @@ function Playback() {
 
   useEffect(() => {
     if (!blob) return;
-    /* why aren't we directly updating the status to PLATYING when the
+    /* why aren't we directly updating the status to PLAYING when the
     user clicks on the play button? BECAUSE: we need to SYNC the audio played
     with the 'played bars' getting drawn. Apparently, it takes time for the audio
     src tag to 'load' the blob we pass into it. After that it plays the audio. So we
@@ -40,10 +41,10 @@ function Playback() {
       drawPlayedBars();
     } else if (audioStatus === PAUSED_PLAYING) {
       pauseAudio();
-      clearInterval(interval.current);
+      window.clearInterval(interval.current);
     } else if (audioStatus === STOPPED) {
       // remove the red light
-      clearInterval(interval.current);
+      window.clearInterval(interval.current);
     }
   }, [audioStatus]);
 
@@ -146,6 +147,7 @@ function Playback() {
     let currentBar = 0, previousBar: number, previousTime: number | undefined;
     const progressBarCtx = progressLineRef?.current?.getContext('2d');
     const ctx = playedCanvasRef?.current?.getContext('2d');
+
     function drawBar() {
       if (!ctx || !progressBarCtx) return;
       currentBar = Math.round(numberOfBars * ((audioRef?.current?.currentTime ?? 1) / durationUpdated));
@@ -153,7 +155,7 @@ function Playback() {
       previousTime = audioRef?.current?.currentTime;
       previousBar = currentBar;
       if (currentBar >= numberOfBars) {
-        clearInterval(interval.current);
+        window.clearInterval(interval.current);
         return;
       }
       const bar = adjustedBars[currentBar];
@@ -165,10 +167,11 @@ function Playback() {
         progressBarCtx?.fillRect(bar.x, 0, 1, (progressLineRef?.current?.offsetHeight ?? 1));
       }
     }
+
     /* we want to immediately start drawing the graph
     setInterval will wait for the first interval to finish before executing the callback */
     drawBar();
-    interval.current = setInterval(drawBar, delay);
+    interval.current = window.setInterval(drawBar, delay);
   };
 
   return (
