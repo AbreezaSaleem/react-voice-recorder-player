@@ -32,6 +32,7 @@ function Controllers() {
     controllerContainerStyle,
     controllerStyle,
     downloadable = true,
+    uploadAudioFile = true,
     onAudioDownload,
     onRecordingStart,
     onPlayStart,
@@ -241,6 +242,7 @@ function Controllers() {
             disabled: false,
             status: buttonStatuses.showUploadBtn,
             onClick: uploadFileSelection,
+            display: uploadAudioFile,
           })}
           {renderControl({
             svg: <Loading />,

@@ -10,6 +10,7 @@ export type VoiceRecorderProps = {
   graphColor?: string;
   graphShaded?: boolean;
   downloadable?: boolean;
+  uploadAudioFile?: boolean;
   onAudioDownload?: (data: Blob) => void;
   onRecordingStart?: () => void;
   onRecordingEnd?: (data: Blob) => void;

@@ -11,6 +11,7 @@ const UserPropsContext = createContext<UserPropsContextInterface>({
   height: 'inherit',
   width: 'inherit',
   downloadable: false,
+  uploadAudioFile: true,
   onAudioDownload: () => undefined,
   onRecordingStart: () => undefined,
   onRecordingEnd: () => undefined,
